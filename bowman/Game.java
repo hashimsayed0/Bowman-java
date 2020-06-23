@@ -5,9 +5,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,8 +32,6 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
     private int yLand; // land y position
     private GamerEntity p1, p2;
     private MissileEntity currentArrow;
-
-   
 
     private enum GameState {
         STARTUP, P1ACTIVE, P2ACTIVE, ARROWAWAY, GAMEOVER
@@ -295,7 +291,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         g2d.setColor(new Color(0.2f, 0.2f, 0.2f, 0.5f));
         g2d.fillRect((int) cam.getX(), (int) cam.getY(), cam.getWidth(), cam.getHeight());
         g2d.setColor(c);
-        g2d.drawString("Please click anywhere on the screen to start Game", cam.getX() + cam.getWidth() / 2 - 80, cam.getY() + cam.getHeight() / 2);
+        g2d.drawString("Please click anywhere on the screen to start the game", cam.getX() + cam.getWidth() / 2 - 80, cam.getY() + cam.getHeight() / 2);
     }
 
     private void init() {
@@ -314,6 +310,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         cam = new Camera(this, 0, gameHeight - windowHeight, windowWidth, windowHeight);
         addMouseListener(cam);
         addMouseMotionListener(cam);
+
     }
 
 //    private void initShrubs() {
@@ -345,7 +342,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
 
     private void initPlayers() {
         p1 = new GamerEntity(200, yLand - 160, 60, 160, "Gamer 1");
-        p2 = new GamerEntity((float) (Math.random() * (gameWidth - 1500) + 2000), yLand - 160, 60, 160, "Gamer 2");
+        p2 = new GamerEntity((float) (Math.random() * (gameWidth - 1500) + 1500), yLand - 160, 60, 160, "Gamer 2");
         p2.setDirection(Direction.LEFT);
         entities.add(p1);
         entities.add(p2);

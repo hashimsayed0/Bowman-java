@@ -159,43 +159,43 @@ public class MissileEntity extends Entity {
     }
     
     //Draw blood Splash ********************************************
-    BufferedImage img;
-    float sequenceOfPicture_splash=0;//sequence of image for the blood splash
-    public void drawBloodSplash(Graphics2D g2d){
-        
-        try {
-            img=ImageIO.read(new File("tmp-"+(int)sequenceOfPicture_splash+".gif")); 
-            
-            if(direction==Direction.RIGHT)
-                g2d.drawImage(img,(int) x,(int) y-50, 70, 70, null);
-            if(direction==Direction.LEFT)
-                g2d.drawImage(img,(int) x,(int) y-50, -70, 70, null);
-                
-            if(sequenceOfPicture_splash<=8)
-            sequenceOfPicture_splash+=0.1;//this is determine how many times it takes to increase a real number "1 ... 2....3..."
-            
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-        
-    }
+//    BufferedImage img;
+//    float sequenceOfPicture_splash=0;//sequence of image for the blood splash
+//    public void drawBloodSplash(Graphics2D g2d){
+//
+//        try {
+//            img=ImageIO.read(new File("tmp-"+(int)sequenceOfPicture_splash+".gif"));
+//
+//            if(direction==Direction.RIGHT)
+//                g2d.drawImage(img,(int) x,(int) y-50, 70, 70, null);
+//            if(direction==Direction.LEFT)
+//                g2d.drawImage(img,(int) x,(int) y-50, -70, 70, null);
+//
+//            if(sequenceOfPicture_splash<=8)
+//            sequenceOfPicture_splash+=0.1;//this is determine how many times it takes to increase a real number "1 ... 2....3..."
+//
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//
+//    }
     
     //Draw blood Dropping *********************************************
-    BufferedImage img2;
-    float locationOfDrop=1;//sequence of image for the blood dropping
-    public void drawBloodDropping(Graphics2D g2d){
-        try {
-            img2=ImageIO.read(new File("BloodDrop.gif" ));
-            g2d.drawImage(img2,(int) x,(int) y+20+(int)locationOfDrop, 5, 5, null);
-            
-            if(locationOfDrop>=600)
-                locationOfDrop=1;
-            
-            locationOfDrop+=locationOfDrop*9.8/240;
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+//    BufferedImage img2;
+//    float locationOfDrop=1;//sequence of image for the blood dropping
+//    public void drawBloodDropping(Graphics2D g2d){
+//        try {
+//            img2=ImageIO.read(new File("BloodDrop.gif" ));
+//            g2d.drawImage(img2,(int) x,(int) y+20+(int)locationOfDrop, 5, 5, null);
+//
+//            if(locationOfDrop>=600)
+//                locationOfDrop=1;
+//
+//            locationOfDrop+=locationOfDrop*9.8/240;
+//        } catch (IOException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
     
     public void setRotationFixedPoint(float x,float y){
          if(rotationPointX==0&&rotationPointY==0)//if the rotation point doesnt have value
