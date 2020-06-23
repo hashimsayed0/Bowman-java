@@ -295,7 +295,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         g2d.setColor(new Color(0.2f, 0.2f, 0.2f, 0.5f));
         g2d.fillRect((int) cam.getX(), (int) cam.getY(), cam.getWidth(), cam.getHeight());
         g2d.setColor(c);
-        g2d.drawString("Click to start Game", cam.getX() + cam.getWidth() / 2 - 80, cam.getY() + cam.getHeight() / 2);
+        g2d.drawString("Please click anywhere on the screen to start Game", cam.getX() + cam.getWidth() / 2 - 80, cam.getY() + cam.getHeight() / 2);
     }
 
     private void init() {
