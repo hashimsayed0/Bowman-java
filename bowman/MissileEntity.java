@@ -7,21 +7,18 @@ package bowman;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
  *
  * @author a-haydar
  */
-public class ArrowEntity extends Entity {
+public class MissileEntity extends Entity {
 
     private float initialVelocity;
     private float angle;
@@ -36,12 +33,12 @@ public class ArrowEntity extends Entity {
     private boolean shot;
     private boolean hit;
     private Direction direction;
-    private ArrayList<ArrowStateListener> arrowStateListeners;
+    private ArrayList<MissileStateListener> arrowStateListeners;
     private ArrayList<Targetable> targets;
     private int rotationPointX,rotationPointY;
     private Graphics2D g2d;
 
-    public ArrowEntity(float x, float y, float initialVelocity, float angle, int yLand, ArrayList<Targetable> targets,boolean isArrow) {
+    public MissileEntity(float x, float y, float initialVelocity, float angle, int yLand, ArrayList<Targetable> targets, boolean isArrow) {
         super(x, y, 80, 1,isArrow); // fixed arrow width and height
         this.initialVelocity = initialVelocity; // m/s
         this.angle = 0;
@@ -61,7 +58,7 @@ public class ArrowEntity extends Entity {
         
     }
 
-    public void addStateListener(ArrowStateListener asl) {
+    public void addStateListener(MissileStateListener asl) {
         arrowStateListeners.add(asl);
     }
     
@@ -287,8 +284,8 @@ public class ArrowEntity extends Entity {
         
           if(hit)//draw blood animation
         {
-            drawBloodSplash(g2d);
-            drawBloodDropping(g2d);
+//            drawBloodSplash(g2d);
+//            drawBloodDropping(g2d);
         }
         
         

@@ -10,7 +10,7 @@ package bowman;
  *
  * @author a-haydar
  */
-public interface ArrowStateListener {
+public interface MissileStateListener {
     
     /**
      * Called when an arrow hits a target.

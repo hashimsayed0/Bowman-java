@@ -1,9 +1,9 @@
+
 package bowman;
 
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,15 +25,15 @@ import javax.imageio.ImageIO;
  *
  * @author a-haydar
  */
-public class Game extends Canvas implements Runnable, MouseListener, MouseMotionListener, ArrowStateListener {
+public class Game extends Canvas implements Runnable, MouseListener, MouseMotionListener, MissileStateListener {
 
     private int gameWidth;
     private int gameHeight;
     private int windowWidth;
     private int windowHeight;
     private int yLand; // land y position
-    private PlayerEntity p1, p2;
-    private ArrowEntity currentArrow;
+    private GamerEntity p1, p2;
+    private MissileEntity currentArrow;
 
    
 
@@ -220,7 +220,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
             img=ImageIO.read(new File("./skeleton"+ imgNumber +".gif"));
             imgNumber++;
             g2d.drawImage(img,(int) cam.getX()+cam.getWidth()/2,(int) cam.getY()+cam.getHeight()/2, null);
-            g2d.setColor(Color.green);
+            g2d.setColor(Color.blue);
             g2d.fillRect((int) cam.getX()*2,(int) cam.getY()/2, 3000, 3000);
             System.out.println("image drawn sucessfully at "+cam.getX()+" "+cam.getY());
         } catch (IOException ex) {
@@ -249,9 +249,10 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         g2d.clearRect((int) cam.getX(), (int) cam.getY(), cam.getWidth(), cam.getHeight());
         
         //draw white Background
-        g2d.setColor(new Color(1f, 1f, 1f, 1f));
+//        g2d.setColor(new Color(1f, 1f, 1f, 1f));
+        g2d.setColor(Color.cyan);
         g2d.fillRect((int) cam.getX(), (int) cam.getY(), cam.getWidth(), cam.getHeight());
-        g2d.setColor(Color.black);
+        g2d.setColor(Color.darkGray);
 
         // draw land
         g2d.drawLine((int) cam.getX(), yLand, (int) (cam.getX() + cam.getWidth()), yLand);
@@ -278,7 +279,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         // renderBarControl information and controls
         renderHUD(g2d);
         cam.renderBarControl(g2d);
-        
+
         // ---------------finished drawing things-------------------
 
         bufferedGraphics.show();
@@ -300,8 +301,8 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
     private void init() {
         entities = new ArrayList<>();
 
-        initShrubs();
-        initClouds();
+//        initShrubs();
+//        initClouds();
         initCamera();
         initPlayers();
         addMouseListener(this);
@@ -315,36 +316,36 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         addMouseMotionListener(cam);
     }
 
-    private void initShrubs() {
-        //shrubs; 20; random
-        float xPos;
-        int sw, sh;
-        for (int i = 0; i < 60; i++) {
-            xPos = (float) (Math.random() * (gameWidth - 400)) + 200;
-            sw = (int) (Math.random() * (10)) + 5;
-            sh = (int) (Math.random() * (40)) + 20;
-            entities.add(new ShrubEntity(xPos, (float) yLand, sw, sh));
-        }
-    }
+//    private void initShrubs() {
+//        //shrubs; 20; random
+//        float xPos;
+//        int sw, sh;
+//        for (int i = 0; i < 60; i++) {
+//            xPos = (float) (Math.random() * (gameWidth - 400)) + 200;
+//            sw = (int) (Math.random() * (10)) + 5;
+//            sh = (int) (Math.random() * (40)) + 20;
+//            entities.add(new ShrubEntity(xPos, (float) yLand, sw, sh));
+//        }
+//    }
 
-    private void initClouds() {
-        //Clouds; 20; random
-        float xPos, yPos;
-        int cw, ch;
-        for (int i = 0; i < 20; i++) {
-            xPos = (float) (Math.random() * (gameWidth - 400));
-            yPos = (float) (Math.random() * (gameHeight / 2)) + 200;
-            //cw = (int) (Math.random()*(160)) + 40;
-            cw = (int) (Math.random() * (60)) + 15;
-            //ch = (int) (Math.random()*(80)) + 20;
-            ch = 2 * cw / 3;
-            entities.add(new CloudEntity(xPos, yPos, cw, ch, (float) (Math.random()) - 0.5f));
-        }
-    }
+//    private void initClouds() {
+//        //Clouds; 20; random
+//        float xPos, yPos;
+//        int cw, ch;
+//        for (int i = 0; i < 20; i++) {
+//            xPos = (float) (Math.random() * (gameWidth - 400));
+//            yPos = (float) (Math.random() * (gameHeight / 2)) + 200;
+//            //cw = (int) (Math.random()*(160)) + 40;
+//            cw = (int) (Math.random() * (60)) + 15;
+//            //ch = (int) (Math.random()*(80)) + 20;
+//            ch = 2 * cw / 3;
+//            entities.add(new CloudEntity(xPos, yPos, cw, ch, (float) (Math.random()) - 0.5f));
+//        }
+//    }
 
     private void initPlayers() {
-        p1 = new PlayerEntity(200, yLand - 160, 60, 160, "Player 1");
-        p2 = new PlayerEntity((float) (Math.random() * (gameWidth - 1500) + 1000), yLand - 160, 60, 160, "Player 2");
+        p1 = new GamerEntity(200, yLand - 160, 60, 160, "Gamer 1");
+        p2 = new GamerEntity((float) (Math.random() * (gameWidth - 1500) + 2000), yLand - 160, 60, 160, "Gamer 2");
         p2.setDirection(Direction.LEFT);
         entities.add(p1);
         entities.add(p2);
@@ -366,7 +367,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         renderPlayerStats(g2d, p2, 200, 10, x2, padding);
 
         // fps
-        g2d.drawString("FPS: " + lastFrames + "      [" + secondsSoFar + "] seconds   <" + (cam.getX() + cam.getWidth() / 2) + " | " + (cam.getY() + cam.getHeight() / 2) + ">", 5, windowHeight - 5);
+//        g2d.drawString("FPS: " + lastFrames + "      [" + secondsSoFar + "] seconds   <" + (cam.getX() + cam.getWidth() / 2) + " | " + (cam.getY() + cam.getHeight() / 2) + ">", 5, windowHeight - 5);
         if (framesTime >= 1000000000) { // if a second has passed
             lastFrames = frames;
             frames = 0;
@@ -385,11 +386,11 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
      * @param y bar y coord.
      * @param p the player we display information about
      */
-    private void renderPlayerStats(Graphics2D g2d, PlayerEntity p, int bw, int bh, int x, int y) {
+    private void renderPlayerStats(Graphics2D g2d, GamerEntity p, int bw, int bh, int x, int y) {
         g2d.drawString(p.getName(), x, y);
         renderBar(g2d, x, y + 10, bw, bh, bw * p.getHealth() / 100);
-        g2d.drawString("Power :" + p.getPower(), x, y + 35);
-        g2d.drawString("Angle :" + p.getAngle(), x, y + 50);
+        g2d.drawString("Strength :" + p.getPower(), x, y + 35);
+        g2d.drawString("Slant :" + p.getAngle(), x, y + 50);
     }
 
     /**
@@ -402,9 +403,10 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
      * @param value how full is the bar
      */
     private void renderBar(Graphics2D g2d, int x, int y, int w, int h, int value) {
-        g2d.drawRoundRect(x, y, w, h, 5, 5);
-        g2d.setColor(new Color(0.86f, 0.08f, 0.23f));//makes the life bar bloody color
-        g2d.fillRoundRect(x, y, value, h, 5, 5);
+//        g2d.drawRoundRect(x, y, w, h, 5, 5);
+        g2d.drawRect(x, y, w, h);
+        g2d.setColor(new Color(0.08f, 0.86f, 0.23f));//makes the life bar bloody color
+        g2d.fillRect(x, y, value, h);
         g2d.setColor(Color.black);
     }
 
@@ -434,9 +436,9 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
         
     }
 
-    private void prepareArrow(PlayerEntity player) {
+    private void prepareArrow(GamerEntity player) {
         makeThePreviouseArrowGreen();
-        currentArrow = new ArrowEntity(400, gameHeight - 60, player.getAngle(), -45, yLand, targets, true);
+        currentArrow = new MissileEntity(400, gameHeight - 60, player.getAngle(), -45, yLand, targets, true);
         currentArrow.addStateListener(this);
         entities.add(currentArrow);
         player.setArrow(currentArrow);
@@ -506,7 +508,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
     public void mouseDragged(MouseEvent e) {
         if (e.getY() < windowHeight - 50) { // outside control bar
             if (state.peek() == GameState.P1ACTIVE || state.peek() == GameState.P2ACTIVE) {
-                PlayerEntity curr = p1;
+                GamerEntity curr = p1;
                 int modifier = -1;
                 if (state.peek() == GameState.P2ACTIVE) {
                     curr = p2;
@@ -538,7 +540,7 @@ public class Game extends Canvas implements Runnable, MouseListener, MouseMotion
 //        if (state.peek() == GameState.ARROWAWAY) {
 //            state.pop();
 //        }
-        PlayerEntity p = (PlayerEntity) target;
+        GamerEntity p = (GamerEntity) target;
         if (p.getHealth() <= 0) {
             state.push(GameState.GAMEOVER);
             System.out.println(p.getName() + " is out!");

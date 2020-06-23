@@ -6,25 +6,25 @@
 package bowman;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
+import java.awt.Color;
 
 /**
  *
  * @author a-haydar
  */
-public class PlayerEntity extends Entity implements Targetable {
+public class GamerEntity extends Entity implements Targetable {
 
     private int health;
     private float angle, power;
     private String name;
     private boolean active;
-    private ArrowEntity arrow;
+    private MissileEntity arrow;
     private Direction direction;
 
-    public PlayerEntity(float x, float y, int width, int height, String name) {
+    public GamerEntity(float x, float y, int width, int height, String name) {
         super(x, y, width, 170); // ignoring width and height since we are hardcoding
         this.health = 100;
         this.power = 0;
@@ -96,11 +96,11 @@ public class PlayerEntity extends Entity implements Targetable {
         this.active = active;
     }
 
-    public ArrowEntity getArrow() {
+    public MissileEntity getArrow() {
         return arrow;
     }
 
-    public void setArrow(ArrowEntity arrow) {
+    public void setArrow(MissileEntity arrow) {
         this.arrow = arrow;
         this.arrow.setDirection(direction);
         arrow.setX(x + width + arrow.getWidth());
@@ -194,13 +194,13 @@ public class PlayerEntity extends Entity implements Targetable {
         }
         g2d.setTransform(originalTransform);
         //draw bounding boxes
-        //Color c = g2d.getColor();
-        //g2d.setColor(Color.PINK);
-        //g2d.drawRect((int)x, (int)y, 30, 30); //head
-        //g2d.drawRect((int)x, (int)y+31, 30, 69); //body
-        //g2d.drawRect((int)x, (int)y+101, 30, 65); //legs
-        //g2d.setColor(c);
-        //g2d.drawRoundRect((int) x, (int) y, width, height, 10, 10);
+//        Color c = g2d.getColor();
+//        g2d.setColor(Color.PINK);
+//        g2d.drawRect((int)x, (int)y, 30, 30); //head
+//        g2d.drawRect((int)x, (int)y+31, 30, 69); //body
+//        g2d.drawRect((int)x, (int)y+101, 30, 65); //legs
+//        g2d.setColor(c);
+//        g2d.drawRoundRect((int) x, (int) y, width, height, 10, 10);
     }
 
     @Override
